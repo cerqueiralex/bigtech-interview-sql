@@ -18,7 +18,20 @@ Expected Output:
 
 <hr>
 
-Answer:
+Answer 01 (most efficient):
+
+```
+select id, 
+        first_name,
+        last_name,
+        department_id,
+        max(salary) as current_salary 
+from ms_employee_salary
+group by 1,2,3,4
+order by 1;
+```
+
+Answer 02:
 
 ```
 -- |id|first name| last name|departmentID|current salary|
