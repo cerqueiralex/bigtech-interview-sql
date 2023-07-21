@@ -1,10 +1,14 @@
-### Question 3
-#### Number of Workers by Department Starting in April or Later
+### Question 05
+#### Number of Shipments per Month
 
 - Company: Amazon, Apple
 - Dificulty: Easy
 
 Write a query that will calculate the number of shipments per month. The unique key for one shipment is a combination of shipment_id and sub_id. Output the year_month in format YYYY-MM and the number of shipments in that month.
+
+Expected Output
+
+<table class="ResultsTable__table"><thead><tr class="ResultsTable__header-row"><th class="ResultsTable__header-cell">year_month</th><th class="ResultsTable__header-cell">count</th></tr></thead><tbody><tr class="ResultsTable__row "><td class="ResultsTable__cell">2021-08</td><td class="ResultsTable__cell">3</td></tr><tr class="ResultsTable__row "><td class="ResultsTable__cell">2021-09</td><td class="ResultsTable__cell">6</td></tr></tbody></table>
 
 Table: amazon_shipment
 
@@ -12,6 +16,30 @@ Table: amazon_shipment
 
 <hr>
 
-Expected Output
+Answer 01:
 
-<table class="ResultsTable__table"><thead><tr class="ResultsTable__header-row"><th class="ResultsTable__header-cell">year_month</th><th class="ResultsTable__header-cell">count</th></tr></thead><tbody><tr class="ResultsTable__row "><td class="ResultsTable__cell">2021-08</td><td class="ResultsTable__cell">3</td></tr><tr class="ResultsTable__row "><td class="ResultsTable__cell">2021-09</td><td class="ResultsTable__cell">6</td></tr></tbody></table>
+```
+-- |year-month| shipments| (YYYY-MM)
+-- shipment_id + sub_id = one shipment
+
+SELECT 
+
+to_char (shipment_date, 'YYYY-MM') AS year_month,
+COUNT (DISTINCT (shipment_id, sub_id))
+
+FROM amazon_shipment
+GROUP BY 1
+
+------------
+
+More efficient:
+
+SELECT 
+
+to_char (shipment_date, 'YYYY-MM') AS year_month,
+COUNT (*)
+
+FROM amazon_shipment
+GROUP BY 1
+
+```
